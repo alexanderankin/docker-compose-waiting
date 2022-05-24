@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  server:
+    image: hs
+    expose:
+      - 8080
+    entrypoint: >
+      /bin/sh -c "
+        sleep 2;
+        http-server;
+        "
+
+  waiter:
+    image: nginx
+    ports:
+      - 8080:80
+    entrypoint: >
+      /bin/sh -c "
+        sleep 3;
+        nginx -g \"daemon off;\"
+        "
