@@ -5,6 +5,7 @@ services:
     image: hs
     expose:
       - 8080
+    init: true
     entrypoint: >
       /bin/sh -c "
         sleep 2;
@@ -15,8 +16,9 @@ services:
     image: nginx
     ports:
       - 8080:80
+    init: true
     entrypoint: >
-      /bin/sh -c "
-        sleep 3;
+      /bin/bash -c "
+        host=server; port=8080; start=$$(date +%s); while true; do if (echo -n > /dev/tcp/$$host/$$port)>/dev/null 2>&1 ; then echo done; break; else echo trying again after $$(($$(date +%s) - $$start)) seconds for port $$port; sleep 1; fi; done; echo available after $$(($$(date +%s) - $$start)) seconds;
         nginx -g \"daemon off;\"
         "
