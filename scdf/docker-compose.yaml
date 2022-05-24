@@ -86,10 +86,8 @@ services:
       - skipper-server
     entrypoint: >
       bin/sh -c "
-         apt-get update && apt-get install --no-install-recommends -y wget &&
-         wget --no-check-certificate -P /tmp/ https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh &&
-         chmod a+x /tmp/wait-for-it.sh &&
-         /tmp/wait-for-it.sh mysql:3306 -- /cnb/process/web"
+         host=mysql; port=3306; start=$$(date +%s); while true; do if (echo -n > /dev/tcp/$$host/$$port)>/dev/null 2>&1 ; then echo done; break; else echo trying again after $$(($$(date +%s) - $$start)) seconds for $$host:$$port; sleep 1; fi; done; echo available after $$(($$(date +%s) - $$start)) seconds;
+         /cnb/process/web"
     restart: always
     volumes:
       - ${HOST_MOUNT_PATH:-.}:${DOCKER_MOUNT_PATH:-/home/cnb/scdf}
@@ -136,10 +134,8 @@ services:
       - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_CLOUD_SKIPPER_SERVER_DEPLOYER=ERROR
     entrypoint: >
       bin/sh -c "
-         apt-get update && apt-get install --no-install-recommends -y wget &&
-         wget --no-check-certificate -P /tmp/ https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh &&
-         chmod a+x /tmp/wait-for-it.sh &&
-         /tmp/wait-for-it.sh mysql:3306 -- /cnb/process/web"
+         host=mysql; port=3306; start=$$(date +%s); while true; do if (echo -n > /dev/tcp/$$host/$$port)>/dev/null 2>&1 ; then echo done; break; else echo trying again after $$(($$(date +%s) - $$start)) seconds for $$host:$$port; sleep 1; fi; done; echo available after $$(($$(date +%s) - $$start)) seconds;
+         /cnb/process/web"
     restart: always
     volumes:
       - ${HOST_MOUNT_PATH:-.}:${DOCKER_MOUNT_PATH:-/home/cnb/scdf}

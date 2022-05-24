@@ -20,3 +20,7 @@ at the time of writing:
 https://raw.githubusercontent.com/spring-cloud/spring-cloud-dataflow/v2.9.1/src/docker-compose/docker-compose.yml
 ```
 
+the file `docker-compose.yaml` in this directory contains the amended file
+without `apt-get update` on startup (!!) [1][1].
+
+[1]: https://arstechnica.com/tech-policy/2021/02/comcast-responds-to-pressure-cancels-data-cap-in-northeast-us-until-2022/
